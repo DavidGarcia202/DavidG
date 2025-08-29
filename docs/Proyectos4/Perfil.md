@@ -1,0 +1,2 @@
+#💿Perfil
+###Soy Juan David García Cortez, estoy en quinto semestre de Ingeniería Mecatrónica, en este momento de mi vida me gustaría trabajar en el desarrollo de instalaciones interactivas o en robots de ensamble.
