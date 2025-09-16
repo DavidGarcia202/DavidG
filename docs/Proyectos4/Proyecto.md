@@ -9,5 +9,5 @@
 		src="https://www.canva.com/design/DAGyJUaLMMU/HK5A6LSMlMqAlXwxEsPhBw/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen">
 	</iframe>
 </div>
-<a href="https://www.canva.com/design/DAGyJUaLMMU/HK5A6LSMlMqAlXwxEsPhBw/view?utm_content=DAGyJUaLMMU&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Proyecto</a> de Sumie Arai
+<a href="https://www.canva.com/design/DAGyJUaLMMU/HK5A6LSMlMqAlXwxEsPhBw/view?utm_content=DAGyJUaLMMU&amp;utm_campaign=designshare&amp;utm_medium=embeds&amp;utm_source=link" target="_blank" rel="noopener">Proyecto</a> de Sumie Arai, David Garcia y Rodrigo Miranda 
 

@@ -137,7 +137,7 @@ int main() {
 
 #define CLK_SYS_HZ    150000000u
 static volatile uint32_t next_deadline;   
-static volatile uint32_t intervalo_ciclos = (CLK_SYS_HZ /1000000u)* 400u;    // periodo en microsegundos
+static volatile uint32_t intervalo_ciclos = (CLK_SYS_HZ /1000000u)* 400000u;    // periodo en microsegundos
 
 void on_alarm_irq(void) {
     // 1) Limpiar el flag de la alarma
@@ -184,7 +184,7 @@ int main() {
 #### Imagen del Osciloscopio
 ![Osciloscopio](imgs/CICLOS.png)
 
-* Podemos concluir que el uso de los ciclos es más exacto y preciso para analizar señales rápidas y medir variaciones entre ciclos individuales. 
+* Podemos concluir que el uso de los ciclos es más exacto y preciso para analizar señales rápidas y medir variaciones entre ciclos individuales. Ya que en ambos casos se utilizaron 400 milisegundos, pero notamos que la diferencia de tiempo fue más cercana al valor teórico en el caso de los ciclos.
 
 #### Esquemático Utilizado en la Práctica
 ![Esquemático](imgs/ESQT5.png)
