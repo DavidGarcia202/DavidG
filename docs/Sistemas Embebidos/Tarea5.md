@@ -1,5 +1,7 @@
 # 🤖 Tarea 5: Ejercicio de Medición.
-> Garcia Cortez Juan David · Arai Erazo Sumie ·  Sistemas Embebidos 1  ·  15/09/2025
+
+> Garcia Cortez Juan David · Arai Erazo Sumie ·  Sistemas Embebidos 1  ·  15/09/2025.
+
 ---
 
 
@@ -44,6 +46,7 @@ int main() {
 ```
 ### Imagen del Osciloscopio
 ![Osciloscopio](imgs/EJ1_T5.png)
+
 * El osciloscopio se encuentra con una escala del 50X, a una posición de 2.58 microsegundos. Una diferencia de tiempo de 100 microsegundos y una diferencia de voltaje de 37.19 mV
 
 
