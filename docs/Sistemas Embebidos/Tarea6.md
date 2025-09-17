@@ -427,7 +427,7 @@ int main() {
 }
 ```
 ### Esquemático
-![Esquemático](imgs/ESQT6.png)
+![Esquemático](imgs/ESQT6_2.png)
 
 ### Video
 <iframe width="560" height="315" src="https://www.youtube.com/embed/CuD0zj_AnYM" frameborder="0" allowfullscreen></iframe>
