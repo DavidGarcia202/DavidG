@@ -254,10 +254,10 @@ int main() {
 ```
 
 ### Esquemático
-![Esquemático](imgs/TAREA4.jpeg)
+![Esquemático](imgs/ESQT6_1.png)
 
 ### Video
-<iframe width="560" height="315" src="https://youtube.com/shorts/ffViBdU1jA0?si=r6lhG0ldVCxS2iNB" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ffViBdU1jA0" frameborder="0" allowfullscreen></iframe>
 
 ## Ejercicio 2
 * Modificar su pong, para tener dos botones adicionales, que suban y bajen la velocidad del juego sin delay
@@ -427,7 +427,7 @@ int main() {
 }
 ```
 ### Esquemático
-![Esquemático](imgs/TAREA4.jpeg)
+![Esquemático](imgs/ESQT6.png)
 
 ### Video
-<iframe width="560" height="315" src="https://youtube.com/shorts/CuD0zj_AnYM?si=GLKb38Su9tAvaNSD" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CuD0zj_AnYM" frameborder="0" allowfullscreen></iframe>
