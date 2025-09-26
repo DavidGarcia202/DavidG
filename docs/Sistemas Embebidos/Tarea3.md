@@ -1,5 +1,7 @@
 # 🤖 Tarea 3: Inputs
-######Garcia Cortez Juan David · Arai Erazo Sumie ·  Sistemas Embebidos 1  ·  01/09/2025
+> Garcia Cortez Juan David · Arai Erazo Sumie ·  Sistemas Embebidos 1  ·  01/09/2025.
+
+---
 
 ## Compuertas básicas AND / OR / XOR con 2 botones
 *  Con dos botones A y B (pull-up; presionado=0) enciende tres LEDs que muestren en paralelo los resultados de AND, OR y XOR. En el video muestra las 4 combinaciones (00, 01, 10, 11).

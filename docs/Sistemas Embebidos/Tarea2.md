@@ -1,5 +1,8 @@
 # 🤖 Tarea 2: Outputs Básicos
-######Garcia Cortez Juan David · Arai Erazo Sumie ·  Sistemas Embebidos 1  ·  01/09/2025
+> Garcia Cortez Juan David · Arai Erazo Sumie ·  Sistemas Embebidos 1  ·  01/09/2025.
+
+---
+
 
 ## Contador Binario 4 bits
 * En 4 leds debe mostrarse cada segundo de la presentación binaria del 0 al 15

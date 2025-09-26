@@ -1,5 +1,7 @@
 # 🤖 Tarea 1: Tabla comparativa
-######Garcia Cortez Juan David ·  Sistemas Embebidos 1  ·  25/08/2025
+> Garcia Cortez Juan David ·  Sistemas Embebidos 1  ·  25/08/2025.
+
+---
 
 
 No.| Microcontrolador | Periféricos | Memoria     |Ecosistema |Costos   |Arquitectura|Velocidad de Trabajo|
