@@ -88,8 +88,8 @@ int main() {
 }
 ```
 
-### Esquemático
-![Esquemático](imgs/ESQT6_1.png)
+#Señal Filtrada
 
-### Im
-![Osciloscopio](imgs/T732.png)
+#Señal No Filtrada
+![Osciloscopio T731](imgs/T731.png)
+![Osciloscopio T732](imgs/T732.png)
