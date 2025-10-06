@@ -88,8 +88,8 @@ int main() {
 }
 ```
 
-#Señal Filtrada
+#Señal No Filtrada
 ![Osciloscopio T732](imgs/T732.png)
 
-#Señal No Filtrada
+#Señal Filtrada
 ![Osciloscopio T731](imgs/T731.png)
