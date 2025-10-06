@@ -91,5 +91,5 @@ int main() {
 #Señal Filtrada
 ![Osciloscopio T732](imgs/T732.png)
 
-#Señal Filtrada
+#Señal No Filtrada
 ![Osciloscopio T731](imgs/T731.png)
