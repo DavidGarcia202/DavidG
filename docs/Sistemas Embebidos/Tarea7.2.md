@@ -45,7 +45,7 @@ void tocar_nota(uint slice, uint chan, float frecuencia, int duracion) {
         float f_clk = 125000000.0f;
         float div = f_clk / (frecuencia * (TOP + 1));
         pwm_set_clkdiv(slice, div);
-        pwm_set_chan_level(slice, chan, TOP / 2);
+        pwm_set_chan_level(slice, chan, TOP / 2); //duty al 50%
         sleep_ms(duracion);
         pwm_set_chan_level(slice, chan, 0);
     }
@@ -138,9 +138,24 @@ int main() {
     }
 }
 ```
+### Tabla de valores
+
+``` codigo
+| Nota Musical | Duración| Frecuencia |
+|-------------:|:-------:|:----------:|
+| Fa #         | 214 ms  | 740 Hz     |
+| Re           | 214 ms  | 587 Hz     |
+| Si           | 214 ms  | 494 Hz     |
+| Mi           | 214 ms  | 659 Hz     |
+| Sol#         | 214 ms  | 831 Hz     |
+| La           | 214 ms  | 880 Hz     |
+| Do#          | 214 ms  | 988 Hz     |
+| Silencios    | 214 ms  | -          |
+|Silencio Menor| 214 ms  | -          |
+```
 
 ### Esquemático
-![Esquemático](imgs/ESQT6_1.png)
+![Esquemático](imgs/T72ESQ.png)
 
 ### Audio
 <iframe src="https://iberopuebla-my.sharepoint.com/personal/199541_iberopuebla_mx/_layouts/15/embed.aspx?UniqueId=d9ae5ea4-5cc6-4103-b593-29bb33753bf7&embed=%7B%22ust%22%3Atrue%2C%22hv%22%3A%22CopyEmbedCode%22%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create" width="640" height="360" frameborder="0" scrolling="no" allowfullscreen title="Take on me.m4a"></iframe>
