@@ -111,6 +111,13 @@ int main() {
 }
 ```
 
+### Valores de duty usados
+*  410 / 1023 × 100 ≈ 40%
+
+* 615 / 1023 × 100 ≈ 60%
+
+* 820 / 1023 × 100 ≈ 80%
+
 ### Esquemático
 ![Esquemático](imgs/T71ESQ.png)
 
