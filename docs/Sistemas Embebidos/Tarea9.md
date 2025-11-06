@@ -131,17 +131,22 @@ int main() {
 
 ## Esquemáticos
 
+<div class="iframe-container">
 <iframe 
   src="https://wokwi.com/projects/446817926756467713" 
   width="800" 
-  height="100" 
+  height="600" 
   allowfullscreen>
 </iframe>
+</div>
 
-_Nota: El led será el fotoresistor ya que no existe el componente en wokwi
+_Nota: El led será el fotoresistor ya que no existe el componente en wokwi_
+
+<div class="iframe-container">
 <iframe 
   src="https://wokwi.com/projects/446818621127736321" 
   width="800" 
-  height="100" 
+  height="600" 
   allowfullscreen>
 </iframe>
+</div>
