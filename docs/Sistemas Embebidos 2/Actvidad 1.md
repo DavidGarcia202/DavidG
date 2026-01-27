@@ -54,6 +54,7 @@ Emergency button, no need to create a task there is no way to scale.
 
 ### Exercise 5 — Identifying Hidden Tasks in Pseudo-Code
 Task 5.1 — Identify Hidden Tasks
+
 | Hidden Task                | Trigger (Time / Event)        | Why it should be a Task |
 |----------------------------|-------------------------------|--------------------------|
 | Temperature Sampling       | Time (every loop / ~2 ms)    | Requires periodic measurements for it to have he correct statistics. |
