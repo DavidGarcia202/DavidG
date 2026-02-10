@@ -395,25 +395,13 @@ void app_main(void)
     xTaskCreate(increment_task, "incB", 2048, "TaskB", 5, NULL);
 }
 ```
+- **Remove the mutex again. Do you ever see weird behavior?** - I don´t see a weird behaviour, compared to the other one.
 
 #### Video of it working 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/pIVArhZPAX4" frameborder="0" allowfullscreen></iframe>
 
-- **When do you see “Queue full”?** - I never see the queue full, since my consumer is faster than the consumer,because, it is awake like all the time, since the producer is sending information every 20 ms. But i should see it when the producer is putting items into the queue faster than the consumer can take them out.
+## Change priorities: TaskA priority 6, TaskB priority 4.
 
-### Experiment 2
-* Increase the queue length 5 → 20.
-#### Line of code changed
-```bash
-q_numbers = xQueueCreate(20, sizeof(int)); // length 5
-```
-#### Video of it modified 
+- **What do you expect and why** - I expect that task A dominates the execution, and for it I could barely see task B
 
-- **What changed** - In my case there is no noticeable difference, because the consumer is faster than the consumer, because it has no delay and is awake every time the producer is sending data, so, is always ready to recieve the new message, making the queue always empty for new data.
-
-### Experiment 3
-* Make the consumer “slow”: after a successful receive, add: vTaskDelay(pdMS_TO_TICKS(300));
-
-#### Video of it working
-
-- **What pattern is happening now (buffering / backlog)?** - Both of them, since, for backlog my producer is faster than the consumer making a backlog of 20 numbers waiting to be processed, making also an overflow which is loosing data, the queue is full, due to the producer which is faster, so in some point it starts buffering.
+- **In one sentence: what does a mutex “guarantee”?** - It guarantees that only one task at a time can access a shared resource.
