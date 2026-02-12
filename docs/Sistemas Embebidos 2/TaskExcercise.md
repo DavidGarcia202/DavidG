@@ -26,7 +26,7 @@ We start task by task, analyzing, how to adapt it to the previous one.
 We understand from the evidence obtained that in some cases we have to change the priority of tasks for it to work properly, and the mutex part, could execute both tasks.
 
 ## 5) Analysis
-Is necessary to asssign the priorities of the tasks in order for it to work properly, and to have a better organization of the tasks.
+Is necessary to asssign the priorities of the tasks in order for it to work properly, and to have a better organization of the tasks
 
 ## 6) Code
 The final code done is the following one:
@@ -181,4 +181,4 @@ void app_main(void) {
 
 ## 7 files and media
 * This is the video of it working.
-[https://youtube.com/shorts/qte915losIw?si=ene9WJP17y6GKUTf](https://youtube.com/shorts/qte915losIw?si=ene9WJP17y6GKUTf)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qte915losIw" frameborder="0" allowfullscreen></iframe>
