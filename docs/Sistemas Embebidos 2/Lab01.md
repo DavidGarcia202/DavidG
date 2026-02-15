@@ -56,7 +56,7 @@ void app_main(void)
 }
 ```
 ### Video of it working without modifications
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pIVArhZPAX4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JBFUYanOvcM" frameborder="0" allowfullscreen></iframe>
 
 ### Experiment 1
 * Priority experiment: change hello_task priority from 5 to 2.
@@ -104,7 +104,7 @@ void app_main(void)
 }
 ```
 #### Video of it working 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pIVArhZPAX4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://youtube.com/shorts/dxw3BCAVOWQ" frameborder="0" allowfullscreen></iframe>
 
 - **Does behavior change? Why might it (or might it not)?** - There is no noticeable change, due to the VTaskDelay() function, which makes that must of the time the tasks are in a Blocked state, and spend 99% of their time sleeping, so the low priority task could do it without a noticeable delay, it will matters if both tasks are ready to run at the same microsecond.
 
@@ -155,10 +155,10 @@ void app_main(void)
 }
 ```
 #### Video of it working 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pIVArhZPAX4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-a6wAHV17UE" frameborder="0" allowfullscreen></iframe>
 
 #### Video of it working with hello_task as a higher priority
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pIVArhZPAX4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2-AvU6tteJM" frameborder="0" allowfullscreen></iframe>
 
 - **What happens to blinking?** - The LED is still blinking, even if the priority is lower or the same as the hello_task, however, the however_task will run without delays in the moniitor, which in some cases will crash. In addition, if we change the priority of the hello_task to a higher one, the led will blink faster, making it loooks like it is completly on, because it is stuck in the Ready progress, it is showed in the second video.
 
@@ -223,7 +223,7 @@ void app_main(void)
 }
 ```
 ### Video of it working without modifications
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pIVArhZPAX4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_gC4YUlhtd4" frameborder="0" allowfullscreen></iframe>
 
 ### Experiment 1
 * Make the producer faster: change producer delay 200ms → 20ms.
@@ -285,7 +285,7 @@ void app_main(void)
 }
 ```
 #### Video of it working 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pIVArhZPAX4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/skTfCmXJOWk" frameborder="0" allowfullscreen></iframe>
 
 - **When do you see “Queue full”?** - I never see the queue full, since my consumer is faster than the consumer,because, it is awake like all the time, since the producer is sending information every 20 ms. But i should see it when the producer is putting items into the queue faster than the consumer can take them out.
 
@@ -296,6 +296,7 @@ void app_main(void)
 q_numbers = xQueueCreate(20, sizeof(int)); // length 5
 ```
 #### Video of it modified 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JBFUYanOvcM" frameborder="0" allowfullscreen></iframe>
 
 - **What changed** - In my case there is no noticeable difference, because the consumer is faster than the consumer, because it has no delay and is awake every time the producer is sending data, so, is always ready to recieve the new message, making the queue always empty for new data.
 
@@ -303,6 +304,7 @@ q_numbers = xQueueCreate(20, sizeof(int)); // length 5
 * Make the consumer “slow”: after a successful receive, add: vTaskDelay(pdMS_TO_TICKS(300));
 
 #### Video of it working
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-6PK8rryN7M" frameborder="0" allowfullscreen></iframe>
 
 - **What pattern is happening now (buffering / backlog)?** - Both of them, since, for backlog my producer is faster than the consumer making a backlog of 20 numbers waiting to be processed, making also an overflow which is loosing data, the queue is full, due to the producer which is faster, so in some point it starts buffering.
 
@@ -395,10 +397,13 @@ void app_main(void)
     xTaskCreate(increment_task, "incB", 2048, "TaskB", 5, NULL);
 }
 ```
+### Video of it working w/o modifications
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-6PK8rryN7M" frameborder="0" allowfullscreen></iframe>
+
 - **Remove the mutex again. Do you ever see weird behavior?** - I don´t see a weird behaviour, compared to the other one.
 
 #### Video of it working 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pIVArhZPAX4" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3fsnEzzYnfg" frameborder="0" allowfullscreen></iframe>
 
 ## Change priorities: TaskA priority 6, TaskB priority 4.
 
