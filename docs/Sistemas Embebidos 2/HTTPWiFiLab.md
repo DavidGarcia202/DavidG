@@ -493,7 +493,7 @@ void app_main(void)
 
 ## Screenshot of Serial Terminal
 
-<img src='LAB1_2602.jpg' alt='LAB1' style='max-width:100%;height:auto;'/>
+<img src='imgs/LAB1_2602.jpg' alt='LAB1' style='max-width:100%;height:auto;'/>
 
 ## Answers
 
