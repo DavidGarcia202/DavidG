@@ -127,4 +127,5 @@ esp_err_t mqtt_app_start(const char *broker_uri) {
 ```
 
 #### Video of it working 
-<iframe width="560" height="315" src="https://youtube.com/shorts/1R7rC5hZ4Ns?si=GTcgB341NPUGWonr" frameborder="0" allowfullscreen></iframe>
+<!-- Ajuste para mostrar correctamente el video Shorts de YouTube como embed -->
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1R7rC5hZ4Ns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
