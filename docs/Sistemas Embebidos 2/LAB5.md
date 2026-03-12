@@ -190,4 +190,4 @@ void mqtt_app_start(const char *broker_uri) {
 
 #### Video of it working 
 <!-- Ajuste para mostrar correctamente el video Shorts de YouTube como embed -->
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1R7rC5hZ4Ns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://youtube.com/shorts/j12o1w3M6sM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
