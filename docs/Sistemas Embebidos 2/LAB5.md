@@ -1,5 +1,12 @@
 # MQTT LAB pt2
 
+## Team 
+* Yahir Gil Mendoza
+* Isaac Antonio Perez Aleman
+* Pablo Eduardo López Manzano
+* Juan David Garcia cortez 
+* Sumie Arai Erazo
+
 ## 1) Exercise Goals
 Connect 2 ESPS with MQTT to control on state and brightness
 
@@ -60,117 +67,125 @@ void app_main(void) {
     }
 }
 ```
-### MQTT CLIENT CODE
+### MQTT CLIENT CODE FOR ESP1
 ```bash
+#include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 #include "esp_log.h"
 #include "mqtt_client.h"
-#include "driver/ledc.h" 
-#include "driver/gpio.h" //  para los pines de dirección
-#include "mqtt_client_app.h"
+#include "driver/gpio.h"
+#include "driver/adc.h"
+#include "driver/ledc.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
-static const char *TAG = "MOTOR_DIR_LAB";
+static const char *TAG = "ESP2_TEAM_PAPU";
 
-// Configuración Tópicos 
-#define TOPIC_CMD   "ibero/ei2/team3/c6_01/cmd"
-#define TOPIC_STAT  "ibero/ei2/team3/c6_01/status"
+#define PIN_LED1 6  
+#define PIN_LED2 7  
+#define PIN_BTN1 5  
+#define PIN_BTN2 4  
+#define POT_CHANNEL ADC1_CHANNEL_0 
 
-// Pines del Puente H 
-#define PIN_AIN1       4   // Pin de dirección 1
-#define PIN_AIN2       5   // Pin de dirección 2
-#define PIN_PWM        8    // Pin de velocidad (PWM)
+#define LEDC_MODE LEDC_LOW_SPEED_MODE
+#define LEDC_RES LEDC_TIMER_12_BIT 
 
-// --- Configuración PWM ---
-#define LEDC_MODE      LEDC_LOW_SPEED_MODE
-#define LEDC_CHANNEL   LEDC_CHANNEL_0
-#define LEDC_TIMER     LEDC_TIMER_0
-#define LEDC_RES       LEDC_TIMER_8_BIT
+#define TEAM_ID "teamPapu"
+#define TOPIC_SUB_POT   "ibero/" TEAM_ID "/esp1/potenciometer"
+#define TOPIC_SUB_LED1  "ibero/" TEAM_ID "/esp1/led1"
+#define TOPIC_SUB_LED2  "ibero/" TEAM_ID "/es1/led2"
+
+#define TOPIC_PUB_POT   "ibero/" TEAM_ID "/esp2/potenciometer"
+#define TOPIC_PUB_BTN1  "ibero/" TEAM_ID "/esp2/led1"
+#define TOPIC_PUB_BTN2  "ibero/" TEAM_ID "/esp2/led2"
 
 static esp_mqtt_client_handle_t client = NULL;
 
-void init_motor_hardware() {
-    // 1. Configurar pines de dirección como salida simple
-    gpio_reset_pin(PIN_AIN1);
-    gpio_set_direction(PIN_AIN1, GPIO_MODE_OUTPUT);
-    gpio_reset_pin(PIN_AIN2);
-    gpio_set_direction(PIN_AIN2, GPIO_MODE_OUTPUT);
+int estado_global_led1 = 0;
+int estado_global_led2 = 0;
+int brillo_pot_recibido = 0;
 
-    // 2. Configurar PWM para el pin de velocidad
-    ledc_timer_config_t timer_cfg = {
-        .speed_mode = LEDC_MODE,
-        .timer_num = LEDC_TIMER,
-        .duty_resolution = LEDC_RES,
-        .freq_hz = 5000,
-        .clk_cfg = LEDC_AUTO_CLK
-    };
-    ledc_timer_config(&timer_cfg);
-
-    ledc_channel_config_t chan_cfg = {
-        .speed_mode = LEDC_MODE,
-        .channel = LEDC_CHANNEL,
-        .timer_sel = LEDC_TIMER,
-        .gpio_num = PIN_PWM,
-        .duty = 0
-    };
-    ledc_channel_config(&chan_cfg);
+void refrescar_salidas_pwm() {
+    ledc_set_duty(LEDC_MODE, LEDC_CHANNEL_0, estado_global_led1 * brillo_pot_recibido);
+    ledc_update_duty(LEDC_MODE, LEDC_CHANNEL_0);
+    ledc_set_duty(LEDC_MODE, LEDC_CHANNEL_1, estado_global_led2 * brillo_pot_recibido);
+    ledc_update_duty(LEDC_MODE, LEDC_CHANNEL_1);
 }
 
-void set_motor_speed(int speed) {
-    if (speed > 0) {
-        // Hacia adelante
-        gpio_set_level(PIN_AIN1, 1);
-        gpio_set_level(PIN_AIN2, 0);
-        ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, speed);
-    } else if (speed < 0) {
-        // Hacia atrás (convertimos el negativo a positivo para el PWM)
-        gpio_set_level(PIN_AIN1, 0);
-        gpio_set_level(PIN_AIN2, 1);
-        ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, abs(speed));
-    } else {
-        // Paro total
-        gpio_set_level(PIN_AIN1, 0);
-        gpio_set_level(PIN_AIN2, 0);
-        ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, 0);
+void init_hw() {
+    gpio_config_t btn_cfg = {.pin_bit_mask=(1ULL<<PIN_BTN1)|(1ULL<<PIN_BTN2), .mode=GPIO_MODE_INPUT, .pull_up_en=GPIO_PULLUP_ENABLE};
+    gpio_config(&btn_cfg);
+    adc1_config_width(ADC_WIDTH_BIT_12);
+    adc1_config_channel_atten(POT_CHANNEL, ADC_ATTEN_DB_12);
+    ledc_timer_config_t timer = {.speed_mode=LEDC_MODE, .timer_num=LEDC_TIMER_0, .duty_resolution=LEDC_RES, .freq_hz=5000, .clk_cfg=LEDC_AUTO_CLK};
+    ledc_timer_config(&timer);
+    ledc_channel_config_t l1 = {.channel=LEDC_CHANNEL_0, .gpio_num=PIN_LED1, .speed_mode=LEDC_MODE, .timer_sel=LEDC_TIMER_0, .duty=0};
+    ledc_channel_config(&l1);
+    ledc_channel_config_t l2 = {.channel=LEDC_CHANNEL_1, .gpio_num=PIN_LED2, .speed_mode=LEDC_MODE, .timer_sel=LEDC_TIMER_0, .duty=0};
+    ledc_channel_config(&l2);
+}
+
+void sensors_task(void *pvParameters) {
+    int last_pot = -1, l_b1 = 1, l_b2 = 1;
+    while (1) {
+        if (client) {
+            int b1 = gpio_get_level(PIN_BTN1), b2 = gpio_get_level(PIN_BTN2);
+            if (b1 == 0 && l_b1 == 1) esp_mqtt_client_publish(client, TOPIC_PUB_BTN1, "toggle", 0, 0, 0);
+            l_b1 = b1;
+            if (b2 == 0 && l_b2 == 1) esp_mqtt_client_publish(client, TOPIC_PUB_BTN2, "toggle", 0, 0, 0);
+            l_b2 = b2;
+            int pot = adc1_get_raw(POT_CHANNEL);
+            if (abs(pot - last_pot) > 60) {
+                char s[10]; sprintf(s, "%d", pot);
+                esp_mqtt_client_publish(client, TOPIC_PUB_POT, s, 0, 0, 0);
+                last_pot = pot;
+            }
+        }
+        vTaskDelay(pdMS_TO_TICKS(50));
     }
-    ledc_update_duty(LEDC_MODE, LEDC_CHANNEL);
 }
 
 static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_t event_id, void *event_data) {
     esp_mqtt_event_handle_t event = (esp_mqtt_event_handle_t) event_data;
-
-    switch ((esp_mqtt_event_id_t)event_id) {
-        case MQTT_EVENT_CONNECTED:
-            esp_mqtt_client_subscribe(client, TOPIC_CMD, 0);
-            esp_mqtt_client_publish(client, TOPIC_STAT, "{\"motor\":\"ready\"}", 0, 0, 1);
-            break;
-
-        case MQTT_EVENT_DATA: {
-            char *raw_val = strndup(event->data, event->data_len);
-            int speed = atoi(raw_val);
-            
-            if (speed >= -255 && speed <= 255) {
-                ESP_LOGI(TAG, "Comando recibido: %d", speed);
-                set_motor_speed(speed);
-                
-                char resp[64];
-                snprintf(resp, sizeof(resp), "{\"current_speed\":%d}", speed);
-                esp_mqtt_client_publish(client, TOPIC_STAT, resp, 0, 0, 0);
-            }
-            free(raw_val);
-            break;
+    if (event_id == MQTT_EVENT_CONNECTED) {
+        esp_mqtt_client_subscribe(client, TOPIC_SUB_POT, 0);
+        esp_mqtt_client_subscribe(client, TOPIC_SUB_LED1, 0);
+        esp_mqtt_client_subscribe(client, TOPIC_SUB_LED2, 0);
+    } else if (event_id == MQTT_EVENT_DATA) {
+        char *data = strndup(event->data, event->data_len);
+        if (strncmp(event->topic, TOPIC_SUB_POT, event->topic_len) == 0) {
+            brillo_pot_recibido = atoi(data);
+        } else if (strncmp(event->topic, TOPIC_SUB_LED1, event->topic_len) == 0) {
+            estado_global_led1 = !estado_global_led1;
+        } else if (strncmp(event->topic, TOPIC_SUB_LED2, event->topic_len) == 0) {
+            estado_global_led2 = !estado_global_led2;
         }
-        default: break;
+        refrescar_salidas_pwm();
+        free(data);
     }
 }
 
-esp_err_t mqtt_app_start(const char *broker_uri) {
-    init_motor_hardware();
+void mqtt_app_start(const char *broker_uri) {
+    init_hw();
+    xTaskCreate(sensors_task, "sensors", 4096, NULL, 5, NULL);
     esp_mqtt_client_config_t cfg = { .broker.address.uri = broker_uri };
     client = esp_mqtt_client_init(&cfg);
     esp_mqtt_client_register_event(client, ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
-    return esp_mqtt_client_start(client);
+    esp_mqtt_client_start(client);
 }
+```
+
+### MQTT Change for ESP2:
+```bash
+#define TOPIC_SUB_POT   "ibero/" TEAM_ID "/esp2/potenciometer"
+#define TOPIC_SUB_LED1  "ibero/" TEAM_ID "/esp2/led1"
+#define TOPIC_SUB_LED2  "ibero/" TEAM_ID "/esp2/led2"
+
+#define TOPIC_PUB_POT   "ibero/" TEAM_ID "/esp1/potenciometer"
+#define TOPIC_PUB_BTN1  "ibero/" TEAM_ID "/esp1/led1"
+#define TOPIC_PUB_BTN2  "ibero/" TEAM_ID "/esp1/led2"
 ```
 
 #### Video of it working 
